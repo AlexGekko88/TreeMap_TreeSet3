@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -21,7 +20,17 @@ public class Main {
         list.add(p6);
 
         System.out.println(list);
-        Collections.sort(list, new PersonsSurnameWordsComparator(2));
+        list.sort((o1, o2) -> {
+            int result;
+            if (o1.countSurnameWords() > 2 && o2.countSurnameWords() > 2) {
+                result = 0;
+            } else {
+                result = Integer.compare(o1.countSurnameWords(), o2.countSurnameWords());
+            }
+
+            result = (result == 0) ? Integer.compare(o1.getAge(), o2.getAge()) : result;
+            return result;
+        });
         System.out.println(list);
     }
 }
